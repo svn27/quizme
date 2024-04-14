@@ -100,8 +100,10 @@
             <input type="text" id="video-link" placeholder="Paste YouTube video link here...">
             <button onclick="submitVideo()">Submit</button>
         </div>
-        <div class="result" id="result-container">
-            <!-- Transcription and questions will be displayed here -->
+        <div class="questions-group" style="display: none;">
+            <p>asdf</p>
+        </div>
+        <div class="result">
         </div>
     </div>
 
@@ -144,6 +146,15 @@
             // Get the input group container by its class name
             var inputGroup = document.querySelector(".input-group");
             inputGroup.remove();
+
+            var questionsGroup = document.querySelector(".questions-group");
+            questionsGroup.style.display = "block";
+
+            var currentNum = 1;
+
+            
+
+            
     
         }
     </script>
