@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachMe</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        /* Basic CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            margin-top: 200px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .input-group button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0c192c;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Bubbles -->
+        <div class="bubbles">
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:28;"></span>
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:28;"></span>
+        </div>
+        <h1>TeachMe</h1>
+        <div class="input-group">
+            <label for="video-link">Enter YouTube Video Link:</label>
+            <input type="text" id="video-link" placeholder="Paste YouTube video link here...">
+            <button onclick="submitVideo()">Submit</button>
+        </div>
+        <div class="result" id="result-container">
+            <!-- Transcription and questions will be displayed here -->
+        </div>
+    </div>
+
+    <!-- JavaScript to handle form submission and display results -->
+    <script>
+        function submitVideo() {
+            // Get the YouTube video link from the input field
+            var videoLink = document.getElementById("video-link").value;
+
+            // Make an AJAX request to your backend to process the video link
+            // and retrieve the transcription and questions
+            // Replace the URL with the endpoint of your backend
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/process-video", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Update the result container with the transcription and questions
+                    document.getElementById("result-container").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send(JSON.stringify({ video_link: videoLink }));
+        }
+    </script>
+</body>
+</html>
