@@ -116,9 +116,8 @@
 
     <!-- JavaScript to handle form submission and display results -->
     <script>
-        var data;
-        var currentNum;
-        
+        var data; 
+        var currentNum = 1;
         function getYouTubeVideoId(youtubeLink) {
             // Create a URL object with the provided YouTube link
             var url = new URL(youtubeLink);
@@ -143,16 +142,17 @@
             // Make a GET request to your Flask aPI
             fetch(url)
             .then(response => response.json())
-            .then(data => {
+            .then(responseData => {
                 // Process the JSON data and display questions
-                processQuestions(data);
+                data = responseData["response"]
+                processQuestions();
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         }
     
-        function processQuestions(data) {
+        function processQuestions() {
             // Get the input group container by its class name
             var inputGroup = document.querySelector(".input-group");
             inputGroup.remove();
@@ -160,9 +160,9 @@
             var questionsGroup = document.querySelector(".questions-group");
             questionsGroup.style.display = "block";
             
+            
             currentNum = 1;
-
-            data = data["response"]
+            
 
             document.getElementById("question-option-description").innerText = data[currentNum.toString()]["question"]
 
@@ -192,6 +192,7 @@
         }
 
         function optionA() {
+            console.log(data);
             if (data[currentNum.toString()]["a"]["0"][0]) {
                 document.getElementById("a-button").style.backgroundColor = "#00FF00";
             }
@@ -200,22 +201,44 @@
                 document.getElementById("a-button").style.backgroundColor = "#FF0000";
             }
 
-            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["0"][1]
+            var wanted;
+            for (var i = 0; i < data[currentNum.toString()]["a"].length; i++) {
+                var obj = data[currentNum.toString()]["a"][i];
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        wanted = key;
+                        break;
+                    }
+                }
+                break; // Break after the first iteration
+            }
+            
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"][0][wanted][1]
 
         }
 
-        function optionB() {
-            if (data[currentNum.toString()]["a"]["1"][0]) {
-                document.getElementById("b-button").style.backgroundColor = "#00FF00";
+        function optionB(data, currentNum) {
+            var correctAnswer;
+            var explanation;
+            
+            for (var i = 0; i < data[currentNum.toString()]["a"].length; i++) {
+                var answer = data[currentNum.toString()]["a"][i];
+                if (answer[0]) {
+                    correctAnswer = Object.keys(answer)[0];
+                    explanation = answer[correctAnswer][1];
+                    break;
+                }
             }
 
-            else {
+            if (correctAnswer === "B") {
+                document.getElementById("b-button").style.backgroundColor = "#00FF00";
+            } else {
                 document.getElementById("b-button").style.backgroundColor = "#FF0000";
             }
 
-            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["1"][1]
-
+            document.getElementById("reason").innerText = explanation;
         }
+
 
         function optionC() {
             if (data[currentNum.toString()]["a"]["2"][0]) {
@@ -226,7 +249,19 @@
                 document.getElementById("c-button").style.backgroundColor = "#FF0000";
             }
 
-            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["2"][1]
+            var wanted;
+            for (var i = 0; i < data[currentNum.toString()]["a"].length; i++) {
+                var obj = data[currentNum.toString()]["a"][i];
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        wanted = key;
+                        break;
+                    }
+                }
+                break; // Break after the first iteration
+            }
+            
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"][2][wanted][1]
 
         }
 
@@ -239,7 +274,19 @@
                 document.getElementById("d-button").style.backgroundColor = "#FF0000";
             }
 
-            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["3"][1]
+            var wanted;
+            for (var i = 0; i < data[currentNum.toString()]["a"].length; i++) {
+                var obj = data[currentNum.toString()]["a"][i];
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        wanted = key;
+                        break;
+                    }
+                }
+                break; // Break after the first iteration
+            }
+            
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"][3][wanted][1]
 
         }
 
