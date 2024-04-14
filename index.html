@@ -144,6 +144,7 @@
     
         function processQuestions(data) {
             // Get the input group container by its class name
+            data = data["response"]
             var inputGroup = document.querySelector(".input-group");
             inputGroup.remove();
 
@@ -152,7 +153,9 @@
 
             var currentNum = 1;
 
-            
+            console.log(data["1"])
+
+
 
             
     
