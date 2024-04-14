@@ -110,6 +110,28 @@ h1 {
     background-color: #FF6666;
 }
 
+/* Questions group styles */
+.questions-group {
+    margin-bottom: 20px;
+}
+
+.questions-group p {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.questions-group button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 /* Result styles */
 .result {
     margin-top: 20px;

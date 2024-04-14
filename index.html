@@ -10,7 +10,7 @@
     <style>
         /* Basic CSS styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: arial, sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -101,10 +101,16 @@
             <button onclick="submitVideo()">Submit</button>
         </div>
         <div class="questions-group" style="display: none;">
-            <p>asdf</p>
-        </div>
-        <div class="result">
-        </div>
+            <p id="question-option-description">Q</p>
+            <p id="a-label"></p>
+            <p id="b-label"></p>
+            <p id="c-label"></p>
+            <p id="d-label"></p>
+            <button id="a-button" onclick="optionA">a</button>
+            <button id="b-button" onclick="optionB">B</button>
+            <button id="c-button" onclick="optionC">C</button>
+            <button id="d-button" onclick="optionD">D</button>
+            <p id="reason"></p>
     </div>
 
     <!-- JavaScript to handle form submission and display results -->
@@ -128,9 +134,9 @@
             var numOfQuestions = prompt("Enter number of questions:");
     
             // Construct the URL with query parameters
-            var url = `https://ec4a81c0-c9c2-4391-ad49-5107014f9aad-00-g4tu840s37n9.worf.replit.dev/getanswers/${encodeURIComponent(videoID)}/${numOfQuestions}/${encodeURIComponent(difficulty)}`;
+            var url = `https://ec4a81c0-c9c2-4391-ad49-5107014f9ad-00-g4tu840s37n9.worf.replit.dev/getanswers/${encodeURIComponent(videoID)}/${numOfQuestions}/${encodeURIComponent(difficulty)}`;
     
-            // Make a GET request to your Flask API
+            // Make a GET request to your Flask aPI
             fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -144,22 +150,96 @@
     
         function processQuestions(data) {
             // Get the input group container by its class name
-            data = data["response"]
             var inputGroup = document.querySelector(".input-group");
             inputGroup.remove();
 
             var questionsGroup = document.querySelector(".questions-group");
             questionsGroup.style.display = "block";
-
+            
             var currentNum = 1;
 
-            console.log(data["1"])
+            data = data["response"]
 
+            document.getElementById("question-option-description").innerText = data[currentNum.toString()]["question"]
 
+            for (key in data[currentNum.toString()]["a"]["0"]) {
+                document.getElementById("a-label").innerText = "a: " + key
+                break
+            }
 
+            for (key in data[currentNum.toString()]["a"]["1"]) {
+                document.getElementById("a-label").innerText = "B: " + key
+                break
+            }
+
+            for (key in data[currentNum.toString()]["a"]["2"]) {
+                document.getElementById("a-label").innerText = "C: " + key
+                break
+            }
+
+            for (key in data[currentNum.toString()]["a"]["3"]) {
+                document.getElementById("a-label").innerText = "D: " + key
+                break
+            }
+
+            
             
     
         }
+
+        function optionA() {
+            if (data[currentNum.toString()]["a"]["0"][0]) {
+                document.getElementById("a-button").style.backgroundColor = "#00FF00";
+            }
+
+            else {
+                document.getElementById("a-button").style.backgroundColor = "#FF0000";
+            }
+
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["0"][1]
+
+        }
+
+        function optionB() {
+            if (data[currentNum.toString()]["a"]["1"][0]) {
+                document.getElementById("b-button").style.backgroundColor = "#00FF00";
+            }
+
+            else {
+                document.getElementById("b-button").style.backgroundColor = "#FF0000";
+            }
+
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["1"][1]
+
+        }
+
+        function optionC() {
+            if (data[currentNum.toString()]["a"]["2"][0]) {
+                document.getElementById("c-button").style.backgroundColor = "#00FF00";
+            }
+
+            else {
+                document.getElementById("c-button").style.backgroundColor = "#FF0000";
+            }
+
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["2"][1]
+
+        }
+
+        function optionD() {
+            if (data[currentNum.toString()]["a"]["3"][0]) {
+                document.getElementById("d-button").style.backgroundColor = "#00FF00";
+            }
+
+            else {
+                document.getElementById("d-button").style.backgroundColor = "#FF0000";
+            }
+
+            document.getElementById("reason").innerText = data[currentNum.toString()]["a"]["3"][1]
+
+        }
+
+
     </script>
 </body>
 </html>
