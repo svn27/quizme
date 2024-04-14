@@ -106,15 +106,19 @@
             <p id="b-label"></p>
             <p id="c-label"></p>
             <p id="d-label"></p>
-            <button id="a-button" onclick="optionA">a</button>
-            <button id="b-button" onclick="optionB">B</button>
-            <button id="c-button" onclick="optionC">C</button>
-            <button id="d-button" onclick="optionD">D</button>
+            <button id="a-button" onclick=optionA()>A</button>
+            <button id="b-button" onclick=optionB()>B</button>
+            <button id="c-button" onclick=optionC()>C</button>
+            <button id="d-button" onclick=optionD()>D</button>
             <p id="reason"></p>
+        </div>
     </div>
 
     <!-- JavaScript to handle form submission and display results -->
     <script>
+        var data;
+        var currentNum;
+        
         function getYouTubeVideoId(youtubeLink) {
             // Create a URL object with the provided YouTube link
             var url = new URL(youtubeLink);
@@ -134,7 +138,7 @@
             var numOfQuestions = prompt("Enter number of questions:");
     
             // Construct the URL with query parameters
-            var url = `https://ec4a81c0-c9c2-4391-ad49-5107014f9ad-00-g4tu840s37n9.worf.replit.dev/getanswers/${encodeURIComponent(videoID)}/${numOfQuestions}/${encodeURIComponent(difficulty)}`;
+            var url = `https://ec4a81c0-c9c2-4391-ad49-5107014f9aad-00-g4tu840s37n9.worf.replit.dev/getanswers/${encodeURIComponent(videoID)}/${numOfQuestions}/${encodeURIComponent(difficulty)}`;
     
             // Make a GET request to your Flask aPI
             fetch(url)
@@ -156,29 +160,29 @@
             var questionsGroup = document.querySelector(".questions-group");
             questionsGroup.style.display = "block";
             
-            var currentNum = 1;
+            currentNum = 1;
 
             data = data["response"]
 
             document.getElementById("question-option-description").innerText = data[currentNum.toString()]["question"]
 
             for (key in data[currentNum.toString()]["a"]["0"]) {
-                document.getElementById("a-label").innerText = "a: " + key
+                document.getElementById("a-label").innerText = "A: " + key
                 break
             }
 
             for (key in data[currentNum.toString()]["a"]["1"]) {
-                document.getElementById("a-label").innerText = "B: " + key
+                document.getElementById("b-label").innerText = "B: " + key
                 break
             }
 
             for (key in data[currentNum.toString()]["a"]["2"]) {
-                document.getElementById("a-label").innerText = "C: " + key
+                document.getElementById("c-label").innerText = "C: " + key
                 break
             }
 
             for (key in data[currentNum.toString()]["a"]["3"]) {
-                document.getElementById("a-label").innerText = "D: " + key
+                document.getElementById("d-label").innerText = "D: " + key
                 break
             }
 
