@@ -3,7 +3,6 @@ from youtube_transcript_api import YouTubeTranscriptApi
 
 def get_transcript_from_link(yt_link:str):
     try:
-        print(get_video_code_from_link(yt_link))
         transcript = YouTubeTranscriptApi.get_transcript(get_video_code_from_link(yt_link))
 
         transcript_text = ""
