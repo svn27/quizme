@@ -19,7 +19,7 @@ def return_answers(video_link:str, number:int, difficulty_selected:str):
     number_of_questions = number 
     difficulty = difficulty_selected
 
-    transcript = video_link
+    transcript = get_transcript_from_link(video_link)
 
     if transcript != "Error":
 
