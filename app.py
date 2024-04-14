@@ -1,7 +1,7 @@
 from openai import OpenAI
 from helper import get_transcript_from_link
 import json
-from flask import Flask, request
+from flask import Flask
 
 
 app = Flask(__name__)
