@@ -53,6 +53,10 @@ body {
 
 }
 
+h1 {
+    font-family: 'Roboto Mono', monospace;
+}
+
 @keyframes animate{
     0%
     {

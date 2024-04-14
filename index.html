@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeachMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>quizme</title>
     <!-- <script src="main.js"></script> -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
@@ -93,7 +94,7 @@
             <span style="--i:13;"></span>
             <span style="--i:28;"></span>
         </div>
-        <h1>TeachMe</h1>
+        <h1>quizme</h1>
         <div class="input-group">
             <label for="video-link">Enter YouTube Video Link:</label>
             <input type="text" id="video-link" placeholder="Paste YouTube video link here...">
@@ -115,31 +116,35 @@
     
             return videoId;
         }
-
+    
         function submitVideo() {
             // Get the YouTube video link from the input field
             var videoLink = document.getElementById("video-link").value;
-
+    
             var videoID = getYouTubeVideoId(videoLink);
             var difficulty = prompt("Enter difficulty (easy, medium, hard):");
             var numOfQuestions = prompt("Enter number of questions:");
-
+    
             // Construct the URL with query parameters
             var url = `https://ec4a81c0-c9c2-4391-ad49-5107014f9aad-00-g4tu840s37n9.worf.replit.dev/getanswers/${encodeURIComponent(videoID)}/${numOfQuestions}/${encodeURIComponent(difficulty)}`;
-            
-
+    
             // Make a GET request to your Flask API
             fetch(url)
             .then(response => response.json())
             .then(data => {
-                // Update the result container with the response
-                //document.getElementById("result-container").innerText = JSON.stringify(data);
-                var doc = JSON.stringify(data);
-                console.log(doc);
+                // Process the JSON data and display questions
+                processQuestions(data);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+        }
+    
+        function processQuestions(data) {
+            // Get the input group container by its class name
+            var inputGroup = document.querySelector(".input-group");
+            inputGroup.remove();
+    
         }
     </script>
 </body>
