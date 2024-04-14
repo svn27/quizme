@@ -2,9 +2,11 @@ from openai import OpenAI
 from helper import get_transcript_from_link
 import json
 from flask import Flask
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 api_key = "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"
