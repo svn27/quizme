@@ -15,7 +15,6 @@ model = "gpt-3.5-turbo"
 
 @app.route('/getanswers/<video_link>/<int:number>/<difficulty_selected>', methods=['GET'])
 def return_answers(video_link:str, number:int, difficulty_selected:str):
-    #Prompt tuning
     number_of_questions = number 
     difficulty = difficulty_selected
 
@@ -49,10 +48,7 @@ def return_answers(video_link:str, number:int, difficulty_selected:str):
         response = ai_magic.choices[0].message.content
         response = response[response.find('[') : response.rfind(']') + 1]
 
-        #print(response)
         data = json.loads(response)
-        #print(data)
-        #print(type(data))
 
         return {"response": data}
 
